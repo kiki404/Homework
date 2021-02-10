@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // 1
+        var arr = ["ABCDEEF","GHIJKKM"];
+        var result=[];   //结果数组
+        var c='';
+        function recur(){
+            for (var x of arr){    //遍历数组
+                var y = x.split("");    //字符串转数组
+                for (var i=0;i<y.length;i++){
+                    var c="";     //临时变量
+                    for (var j=i+1;j<y.length;j++){
+                        
+                        if (y[i]==y[j]){
+                            c+=y[i];
+                            y.splice(j,1);   //有重复的就从数组删去
+                            j--;   //继续比较这个位置
+                        }
+                        
+                    }
+                    if (c){        //代表有重复
+                        result.push(c+c[0]);
+                    }
+                }
+            }
+            console.log(result);
+        }
+        recur();
+
+        // 2
+        function count(array,n){
+            var num=0;
+            for (var x of arr){
+                for (var i=0;i<x.length;i++){
+                    if (x[i]==n){
+                        num++;
+                    }
+                }
+            }
+            console.log(num);
+        }
+        count(arr,'E');
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
