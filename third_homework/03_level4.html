@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../重置样式表/reset.css">
+    <script>
+        var data = {
+            age: 18,
+            name: "liuruchao",
+            education: ["小学", "初中", "高中", "大学", undefined, null],
+            likesFood: new Set(["fish", "banana"]),
+            friends: [
+                { name: "summer", sex: "woman" },
+                { name: "daWen", sex: "woman" },
+                { name: "yang", sex: "man" }],
+            work: {
+                time: "2019",
+                project: { name: "test", obtain: ["css", "html", "js"] }
+            },
+            play: function () { console.log("玩滑板"); }
+        }
+
+        //方法一
+
+        function check(obj) {
+            return Object.prototype.toString.call(obj);
+        }
+        function copy(obj) {
+            var result;
+            if (check(obj) == "[object Array]") {
+                result = [];
+            }
+            else if (check(obj) == "[object Object]") {
+                result = {};
+            }
+
+            if (check(obj) == "[object Array]" || check(obj) == "[object Object]") {
+                for (x in obj) {
+                    if (check(obj[x]) == "[object Array]" || check(obj[x]) == "[object Object]") {
+                        result[x] = copy(obj[x]);
+                    }
+                    else result[x] = obj[x];
+                }
+            }
+            return result;
+        }
+        var obj = copy(data);
+        console.log(obj);
+
+        
+    </script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>

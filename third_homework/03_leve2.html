@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../重置样式表/reset.css">
+    <script>
+        var ary = [1, [2, [3, [4, 5]]], 6];
+        var result= [];
+
+        //方法一（递归）
+
+        function even1(a){
+        
+        if ((typeof a).toString()!="number"){ 
+            for (var x of a){
+                if ((typeof x).toString()!="number"){
+                    even1(x);
+                }
+                else{
+                    result.push(x);
+                }
+            }
+        }
+        else{
+            result.push;
+        }
+    }
+        even1(ary);
+        console.log(result);
+    
+        // // 方法二
+
+        // function even2(a){
+        //     var str = a.join();
+        //     result = str.split(",").map(Number);
+        // }
+        // even2(ary);
+
+        // console.log(result);
+    </script>
+    
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../重置样式表/reset.css">
+    <script>
+         //方法一
+        function Animal() {
+            this.species = "动物";
+        }
+
+        function Cat(name, color) {
+            this.name = name;
+            this.color = color;
+        }
+        var cat1 = Object.assign(new Cat("大猫","黄色"),new Animal());
+        console.log(cat1.species);
+
+
+
+        // //方法二
+        // function Animal() {
+        //     this.species = "动物";
+        // }
+
+        // function Cat(name, color) {
+        //     Animal.call(this)
+        //     this.name = name;
+        //     this.color = color;
+        // }
+        // var cat1 = new Cat("大猫","黄色");
+        // console.log(cat1.species);
+    </script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>
