@@ -1,0 +1,120 @@
+body{
+    font-size: 12px;
+}
+a{
+    color: rgb(38,112,154);
+}
+h1{
+    font-size: 25px;
+}
+.solution{
+    width: 850px;
+    margin: 20px auto;
+    text-align: center;
+}
+.comment_area{
+    height: 450px;
+    border: black 1px solid;
+    padding: 5px;
+    margin-top: 15px;
+    overflow:auto;
+}
+#comment_list .item{
+    position: relative;
+    text-align: start;
+    /* border-top: rgb(221,221,221) solid 1px; */
+    border-bottom: rgb(221,221,221) solid 1px;
+    padding:15px 10px 20px 10px;
+    overflow:hidden;
+}
+.left_aside{
+    float: left;
+}
+.middle{
+    float: left;
+    margin-left: 18px;
+
+}
+.middle .user_level{
+    width: 16px;
+    height: 16px;
+    background-image: url(./level_icon.png);
+    background-position: -34px -17px;
+    display: inline-block;
+}
+
+.middle .top_info .floor{
+    color: #9B9B9B;
+}
+.middle .comment_content{
+    height: 90px;
+    width: 600px;
+    padding-top: 15px;
+}
+.middle .date{
+    color: #9B9B9B;
+}
+.right_aside{
+    float: right;
+    line-height: 16px;
+}
+.right_aside .other_option{
+    float: left;
+
+}
+.right_aside .other_option:hover .iconfont{
+    border-top: rgb(221,221,221) 1px solid;
+    border-left: rgb(221,221,221) 1px solid;
+    border-right: rgb(221,221,221) 1px solid;
+    border-bottom: 1px solid white;
+}
+.right_aside .other_option:hover .option_list{
+    display: block;
+}
+.right_aside .other_option .iconfont{
+    border: 1px transparent solid;
+    position: relative;
+    z-index: 2;
+}
+.right_aside .option_list{
+    position: absolute;
+    z-index: 1;
+    right: 10px;
+    top: 31px;
+    border: rgb(221,221,221) 1px solid;
+    display: none; 
+}
+.right_aside .option li{
+    line-height: 25px;
+    width: 70px;
+    text-align: center;
+}
+.right_aside .option li:hover{
+    background-color: rgb(242,242,242);
+}
+.right_aside .option a{
+    display: block;
+}
+#input{
+    width: 842px;
+    height: 80px;
+    font-size: 14px;
+    display: block;
+    margin-top: 20px;
+}
+#btn{
+    width: 72px;
+    height: 28px;
+    font-size: 14px;
+    display: block;
+    margin-top: 10px;
+    background-color: rgb(123,140,158);
+    color:white;
+    border: 1px solid rgb(107,123,140);
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+}
+#btn:hover{
+    background-color: rgb(107,123,140);
+}

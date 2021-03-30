@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./reset.css">
+  <title>Document</title>
+  <style>
+    .solution{
+      width: 850px;
+      margin: 0 auto;
+    }
+   
+    .main_area{
+      width: 850px;
+      height: 600px;
+
+      background-color: rgb(127,255,212);
+    }
+    .top_bar ul{
+      height: 50px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .top_bar :not(:first-child){
+      cursor: pointer;
+      width: 70px;
+      line-height: 20px;
+      text-align: center;
+      font-size: 15px;
+      background-color: rgb(250,235,215);
+    }
+    .main_area ul{
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      padding: 0 5px;
+      position: relative;
+    }
+    .main_area li{
+      flex: auto;
+      vertical-align: top;
+      text-align: center;
+      margin: 0 2px;
+      position: relative;
+    }
+  </style>
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+    window.onload = function(){
+      var left_in = document.getElementById("left_in");
+      var left_out = document.getElementById("left_out");
+      var right_in = document.getElementById("right_in");
+      var right_out = document.getElementById("right_out");
+      var reset_remove = document.getElementById("reset_remove");
+      var random = document.getElementById("random");
+      var reset_sort = document.getElementById("reset_sort");
+      var input = document.getElementById("input");
+      var ul = document.getElementById("ul_box");
+      var data_num=0;
+      left_in.onclick = function(){
+        var data = input.value;
+        data_num = Number.parseInt(data);
+        if (data_num>=10 && data_num<=100){
+
+            var new_node = document.createElement("li");
+            var list_child = ul.children;
+            var text = document.createElement("span");
+            text.innerText=data;
+            new_node.appendChild(text);
+            new_node.style.height = data_num*6+"px";
+            new_node.style.backgroundColor = "rgb(255,196,197)";
+            
+            ul.insertBefore(new_node,list_child[0]);
+        }
+        else {
+          alert("请输入10-100的数");
+          input.value="";
+        }
+      }
+      function remove(){
+        var list_child = ul.children;
+        var lenth = list_child.length;
+        console.log(list_child);
+        for (let i=0;i<lenth;i++){
+          ul.removeChild(list_child[0]);
+        }
+      }
+      right_in.onclick = function(){
+        var data = input.value;
+        data_num = Number.parseInt(data);
+        if (data_num>=10 && data_num<=100){
+
+            var new_node = document.createElement("li");
+            var list_child = ul.children;
+            var text = document.createElement("span");
+            text.innerText=data;
+            new_node.appendChild(text);
+            new_node.style.height = data_num*6+"px";
+            new_node.style.backgroundColor = "rgb(255,196,197)";
+            ul.appendChild(new_node);
+        }
+        else {
+          alert("请输入10-100的数");
+          input.value="";
+        }
+      }
+         
+      left_out.onclick = function(){
+        var list_child = ul.children;
+        if (list_child.length!=0){
+          ul.removeChild(list_child[0]);
+        }
+      }
+      right_out.onclick = function(){
+        var list_child = ul.children;
+        if (list_child.length!=0){
+          ul.removeChild(list_child[list_child.length-1]);
+        }
+      }
+
+      reset_remove.onclick = remove;
+
+      random.onclick = function(){
+        remove();
+        for (let i=0;i<10;i++)
+        {
+          var new_node = document.createElement("li");
+          let data = Math.floor((Math.random()*91)+10);
+          var text = document.createElement("span");
+          text.innerText=data;
+          new_node.appendChild(text);
+          new_node.style.height = data*6+"px";
+          new_node.style.backgroundColor = "rgb(255,196,197)";
+          ul.appendChild(new_node);
+        }
+        
+          
+      }
+
+      reset_sort.onclick = function(){
+        var list_child = ul.children;
+        var flag = false;
+        var left= 0;
+        var x=true;
+        var k=0;
+        var finish =false;
+        var distance = 840/list_child.length;
+        var timer = setInterval(() => {
+        
+          (function(){
+            for (var i=0;i<list_child.length;i++){
+            for (var j=k;j<list_child.length-1;j++){
+            var data1 = list_child[j].children[0].innerText;
+            var data2 = list_child[j+1].children[0].innerText;
+            if (Number(data1)>Number(data2)){
+              if (!flag && x){
+                left+=distance;
+                $("#ul_box li:eq("+j+")").animate({left:left.toString()},function(){
+                flag=true;
+              });
+              $("#ul_box li:eq("+(j+1)+")").animate({left:'-'+distance+'px'},function(){
+                flag=true;
+              });
+              x=false;
+              }
+              
+
+              if (!flag) return;
+              let big = list_child[j];
+              let small = list_child[j+1];
+              var clone = small.cloneNode(true);
+              clone.style.left ='0px';
+              
+              ul.removeChild(small);
+
+              ul.insertBefore(clone,big);
+              list_child[j+1].style.left='0px';
+              x=true;
+              flag=false;
+              left=0;
+              k++;
+            }
+            else k++;
+          }
+          k=0;
+          if (i==list_child.length-1) finish=true;
+        }
+          })();
+
+          if (finish) clearInterval(timer);
+        }, 500);
+        
+        
+      }
+
+      }
+    
+  </script>
+</head>
+<body>
+  <div class="solution">
+    <div class="top_bar">
+
+      <ul>
+        <li> <input type="text" id="input"></li>
+        <li id="left_in">左侧入</li>
+        <li id="right_in">右侧入</li>
+        <li id="left_out">左侧出</li>
+        <li id="right_out">右侧出</li>
+        <li id="reset_sort">重新排序</li>
+        <li id="reset_remove">清空</li>
+        <li id="random">随机生成</li>
+      </ul>
+    </div>
+    <div class="main_area">
+      <ul id="ul_box">
+
+      </ul>
+    </div>
+  </div>
+    
+  
+</body>
+</html>

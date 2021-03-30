@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./reset.css">
+    <link rel="stylesheet" href="./icon/iconfont.css">
+    <link rel="stylesheet" href="./style.css">
+    <script>
+        var floor=1;
+        window.onload = function(){ 
+            var ul= document.getElementById("comment_list");
+            var btn = document.getElementById("btn");
+            var input = document.getElementById("input");
+
+            var d = new Date();
+            var date = d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes();
+
+ 
+            btn.onclick = function(){
+                var content = input.value;
+                input.value="";
+                var new_li = document.createElement("li");
+                new_li.innerHTML='<div class="left_aside"><img src="./avatar.jpg" alt=""></div><div class="middle"><div class="top_info"><a href="#" style="vertical-align:text-top">×0</a>&nbsp;<a href="#"><div class="user_level"></div></a>&nbsp;<span class="floor" style="vertical-align:text-top">第'+floor+'楼</span></div><div class="comment_content">'+content+'</div><div class="date">'+date+'</div></div><div class="right_aside"><a href="#" style="float: left;margin-right: 10px;">引用</a><div class="other_option"><a href="#" class="iconfont" >&#xe63f;</a><div class="option_list"><ul class="option"><li><a href="#">编辑</a></li><li><a href="#" class="delete">删除</a></li></ul></div></div></div>'
+                
+                new_li.className="item";
+                var Delete = new_li.getElementsByClassName("delete")[0];
+                Delete.onclick=function(){
+                    ul.removeChild(new_li);
+                    alert("删除成功");
+                }
+                floor++;
+                ul.appendChild(new_li);
+                alert("留言成功");
+            }
+            ul.onclick = function(){
+
+            }
+        }
+    </script>
+    
+</head>
+<body>
+    <div class="solution">
+        <h1>留言版</h1>
+        <div class="comment_area">
+            <ul id="comment_list">
+                <li class="item" style="display: none;">
+                    <div class="left_aside">
+                        <img src="./avatar.jpg" alt="">
+                    </div>
+                    <div class="middle">
+                        <div class="top_info">
+                            <a href="#" style="vertical-align:text-top">×0</a>&nbsp;  
+                            <a href="#">
+                                <div class="user_level">
+                                </div>
+                            </a>&nbsp;  
+                            <span class="floor" style="vertical-align:text-top">第1楼</span>
+                        </div>
+                        <div class="comment_content"> 
+                        </div>
+                        <div class="date">
+                            2021-02-24 15:27
+                        </div>
+                    </div>
+                    <div class="right_aside">
+                       <a href="#" style="float: left;margin-right: 10px;">引用</a>
+                       <div class="other_option">
+                           <a href="#" class="iconfont" >&#xe63f;</a>
+                           <div class="option_list">
+                               <ul class="option">
+                                   <li><a href="#">编辑</a></li>
+                                   <li><a href="#" id="delete">删除</a></li>
+                               </ul>
+                           </div>
+                       </div>
+                       
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <textarea id="input"></textarea>
+        <button type="button" id="btn">发表</button>
+    </div>
+</body>
+</html>
