@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../重置样式表/reset.css">
+  <title>Document</title>
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+    window.onload = function(){
+      function ajax(option){
+        var xhr = null;
+        if (window.XMLHttpRequest){
+            xhr = new XMLHttpRequest()
+        }
+        if (option.type=="GET"){
+            xhr.open(option.type,option.url);
+            xhr.send();
+        }
+        else if (option.type=="POST"){
+            xhr.open(option.type,option.url);
+            xhr.send();
+        }
+        xhr.onreadystatechange = function(){
+            if (xhr.readyState==4 && xhr.status ==200){
+                option.success(JSON.parse(xhr.responseText))
+            }
+        }
+    }
+    function Option(type,url,success){
+        this.type = type;
+        this.url = url;
+        this.success = success;
+    }
+    var option =  new Option("GET","http://musicapi.leanapp.cn/personalized?limit=10",function(data){
+        console.log(data);
+    });
+    ajax(option);  
+    
+    }
+    
+    </script>
+</head>
+<body>
+  
+</body>
+</html>

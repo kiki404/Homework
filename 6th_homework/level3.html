@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>封装对象调接口</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+    <script>
+        function Ajax(url, obj) {
+            this.url = url;
+            var options = this.options || obj;
+            Ajax.prototype.get = (url, obj) => {
+                options = obj;
+                this.updateurl(url);
+                this.xhr.open('get', options.url, true);
+                this.xhr.send()
+                return this;
+            }
+            Ajax.prototype.post = (url, obj) => {
+                options = obj;
+                this.updateurl(url);
+                this.xhr.open('post', options.url, true);
+                this.xhr.send()
+                return this;
+            }
+            Ajax.prototype.updateurl = (url) => {
+                if (options.data) {
+                    this.url = url;
+                    this.url += "?";
+                    let k = 0;
+                    for (let i in options.data) {
+                        if (k != 0) {
+                            this.url += "&&";
+                        }
+                        this.url += i + "=" + options.data[i];
+                        k++;
+                    }
+                }
+                options.url = this.url;
+                console.log(options.url);
+                return this;
+            }
+            this.xhr = new XMLHttpRequest;
+            this.xhr.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    if ((this.status >= 200 && this.status < 300) || this.status == 304) {
+                        console.log('请求成功');
+                        const res = JSON.parse(this.response);
+                        options.success(res);
+                    } else {
+                        options.error();
+                    }
+                }
+            }
+            Ajax.prototype.request = () => {
+                this.updateurl(url);
+                this.xhr.open(options.method, options.url, true);
+                this.xhr.send();
+                return this;
+            }
+
+        }
+
+        var ajax = new Ajax('http://musicapi.leanapp.cn/personalized', {
+            method: 'get',
+            data: {
+                limit: 25
+            },
+            success: (res) => {
+                console.log(res);
+            },
+            error: () => {
+                console.log('error!');
+            }
+        })
+        ajax.request();
+
+
+        // var ajax = new Ajax();
+        // ajax.get('http://musicapi.leanapp.cn/personalized', {
+        //     data: {
+        //         limit: 24
+        //     },
+        //     success: (res) => {
+        //         console.log(res);
+        //     },
+        //     error: () => {
+        //         console.log(error);
+        //     }
+        // })
+
+        // 3.在创建对象的时候不初始化，调用post方法并提供参数发送post请求
+
+        // var ajax = new Ajax();
+        // ajax.post('http://musicapi.leanapp.cn/personalized', {
+        //     data: {
+        //         limit: 23
+        //     },
+        //     success: (res) => {
+        //         console.log(res);
+        //     },
+        //     error: () => {
+        //         console.log(error);
+        //     }
+        // })
+    </script>
+</body>
+
+</html>

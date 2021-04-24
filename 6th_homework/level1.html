@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../重置样式表/reset.css">
+    <style>
+        .solution1{
+            width: 1500px;
+            margin: 0 auto;
+            background-color: blanchedalmond    ;
+        }
+        .img_list{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content:space-between;
+            align-items: center;
+        }
+        .img_list li{
+            width: 260px;
+            height: 260px;
+            background-color: brown;
+            margin-bottom: 40px;
+        }
+        img{
+            width: 260px;
+        }
+        .solution2{
+            width: 1500px;
+            background-color: cadetblue;
+            margin: 0 auto;
+        }
+        #records{
+            width: 100%;
+        }
+       
+       
+        tr{
+            text-align: center;
+        }
+    </style>
+
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script class="recommend_songs">
+        $(document).ready(function(){
+            $("#send").click(function(){
+                var t = 10;
+                $.ajax({
+                    url:"http://musicapi.leanapp.cn/personalized?limit="+t,
+                    type:"get",
+                    success:function(data,status){
+                        var img_list = document.getElementsByClassName("img_list")[0];
+                        for (var i=0;i<t;i++){
+                            var li = document.createElement("li");
+                            var img = document.createElement("img");
+                            var span = document.createElement("span");
+                            
+                            img.src = data.result[i].picUrl;
+                            span.innerText = data.result[i].name; 
+                            li.appendChild(img);
+                            li.appendChild(span);
+                            img_list.appendChild(li);
+                        }
+                        
+                        
+                    }
+                })
+            })
+        })
+    </script>
+    <script>
+        function creatNodes(num,data){
+            var records = document.getElementById("records");
+            
+            for (var i=0;i<num;i++){
+                var tr = document.createElement("tr");
+
+                    var td = document.createElement("td");
+                    td.innerText = (i+1);
+                    tr.appendChild(td);
+                
+                    var td = document.createElement("td");
+                    td.innerText = data.result.songs[i].name;
+                    tr.appendChild(td); 
+
+                    var td = document.createElement("td");
+                    td.innerText = data.result.songs[i].artists[0].name;
+                    tr.appendChild(td); 
+
+                    var td = document.createElement("td");
+                    td.innerText = data.result.songs[i].album.name;
+                    tr.appendChild(td); 
+
+                records.appendChild(tr);
+            }
+        }
+        $(document).ready(function(){
+            var num=10;
+            
+            $("#search").click(function(){
+                var input  = document.getElementById("input");
+                var keywords = input.value;
+                console.log(keywords)
+                if (keywords!=''){
+                    $.ajax({
+                    type:"get",
+                    url:"http://musicapi.leanapp.cn/search?limit="+num+"&&keywords="+keywords,
+                    success:function(data,status){
+                        creatNodes(num,data);
+                    }
+                })
+                }
+                
+            })
+        })
+    </script>
+</head>
+<body>
+    <button id="send">推荐歌单</button>
+    <div class="solution1">
+        <ul class="img_list">
+            
+        </ul>
+    </div>
+    
+    <button id="search">查找歌曲</button>
+    <input type="text" id="input" placeholder="关键词" style="display:block;" >
+    <div class="solution2">
+        <table id="records">
+            <tr>
+                <th></th>
+                <th>音乐标题</th>
+                <th>歌手</th>
+                <th>专辑</th>
+            </tr>
+            
+        </table>
+    </div>
+
+</body>
+</html>
